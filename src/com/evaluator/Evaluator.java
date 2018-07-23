@@ -1,6 +1,6 @@
-package com.bunny.evaluator;
+package com.evaluator;
 
-import com.bunny.validator.Validator;
+import com.validator.Validator;
 
 public class Evaluator {
     
@@ -26,24 +26,19 @@ public class Evaluator {
     }
 
 
-    public calculate (final int leftOperand, final int rightOperand, final String operator) {
+    public int calculate (final int leftOperand, final int rightOperand, final String operator) {
 
 	switch (operator) {
 	    
             case "+" : return leftOperand + rightOperand;
-                       break;
 
 	    case "-" : return leftOperand - rightOperand;
-		       break;
 	
 	    case "*" : return leftOperand * rightOperand;
-		       break;
 
 	    case "/" : return leftOperand / rightOperand;
-		       break;
             
             default : return 0;
-		      break;
 
 	}
     }

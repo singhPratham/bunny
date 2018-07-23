@@ -1,1 +1,33 @@
-#avruti
+<?xml version = "1.0"?>
+<project name = "bunny" basedir = "." default = "build">
+   <property name = "src.dir" value = "src"/>
+   <property name = "build.dir" value = "build"/>
+   <property name = "lib.dir" value = "lib"/>
+   <property name = "tst.dir" value = "tst"/>
+
+	   
+   <path id = "classpath">
+      <fileset dir = "${lib.dir}/">
+         <include name = "*.jar"/>
+      </fileset>
+      
+      <pathelement path = "${build.dir}"/>
+   </path>
+
+   <target name = "build" description = "Compile source tree java files">
+      <mkdir dir = "${build.dir}"/>
+      
+      <javac destdir = "${build.dir}" source = "1.8" target = "1.8">
+         <src path = "${src.dir}"/>
+         <classpath refid = "classpath"/>
+      </javac>
+   </target>
+ 
+   <target name = "clean" description = "Clean output directories">
+      <delete>
+         <fileset dir = "${build.dir}">
+            <include name = "**/*.class"/>
+         </fileset>
+      </delete>
+   </target>
+</project>
