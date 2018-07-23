@@ -12,16 +12,44 @@
       </fileset>
       
       <pathelement path = "${build.dir}"/>
+      <pathelement path = "${build.dir}/tst"/>
    </path>
 
-   <target name = "build" description = "Compile source tree java files">
+   <target name = "compile">
       <mkdir dir = "${build.dir}"/>
+      <mkdir dir = "${build.dir}/tst"/>
       
       <javac destdir = "${build.dir}" source = "1.8" target = "1.8">
          <src path = "${src.dir}"/>
          <classpath refid = "classpath"/>
       </javac>
+
+      <javac destdir = "${build.dir}/tst" source = "1.8" target = "1.8">
+         <src path = "${tst.dir}"/>
+         <classpath refid = "classpath"/>
+      </javac>
    </target>
+
+
+   <target name="test" depends="compile">
+      <junit printsummary="yes" haltonfailure="yes" haltonerror="yes">
+
+         <classpath refid="classpath" />
+
+         <formatter type="xml" />
+         <formatter type="plain" />
+
+         <batchtest fork="yes">
+            <fileset dir="${tst.dir}">
+               <include name="**/*Test*.java" />
+            </fileset>
+         </batchtest>
+
+      </junit>
+   </target>
+
+   <target name="build" depends="test"></target>
+
  
    <target name = "clean" description = "Clean output directories">
       <delete>
